@@ -15,6 +15,9 @@ for (int i = 0; i < 3; i++)
             {
          <br>
             matrix[i][j] = ' ';
+            }
+            <br>
+            }
 <br>
     printf("\nCurrent Matrix:\n");
     <br>
