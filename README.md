@@ -1,6 +1,6 @@
 # Game
 <br>
-#include <stdio.h>
+#include<stdio.h>
 <br>
 char matrix[3][3];
     <br>
