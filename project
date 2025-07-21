@@ -1,0 +1,96 @@
+#include <stdio.h>
+
+char matrix[3][3];
+
+void setupMatrix() {
+    for (int i = 0; i < 3; i++)
+        for (int j = 0; j < 3; j++)
+            matrix[i][j] = ' ';
+
+    printf("\nCurrent Matrix:\n");
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 3; j++) {
+            if (matrix[i][j] == ' ')
+                printf("null\t");
+            else
+                printf("%c\t", matrix[i][j]);
+        }
+        printf("\n");
+    }
+}
+
+char checkWinner() {
+    for (int i = 0; i < 3; i++) {
+        if (matrix[i][0] == matrix[i][1] && matrix[i][1] == matrix[i][2] && matrix[i][0] != ' ')
+            return matrix[i][0];
+        if (matrix[0][i] == matrix[1][i] && matrix[1][i] == matrix[2][i] && matrix[0][i] != ' ')
+            return matrix[0][i];
+    }
+
+    if (matrix[0][0] == matrix[1][1] && matrix[1][1] == matrix[2][2] && matrix[0][0] != ' ')
+        return matrix[0][0];
+    if (matrix[0][2] == matrix[1][1] && matrix[1][1] == matrix[2][0] && matrix[0][2] != ' ')
+        return matrix[0][2];
+
+    return ' ';
+}
+
+int main() {
+    int row, col;
+    char ch;
+    int count = 0;
+
+    setupMatrix();  
+
+    while (1) {
+        printf("\nEnter position : ");
+        scanf("%d %d", &row, &col);
+
+        if (row < 0 || row > 2 || col < 0 || col > 2) {
+            printf("Invalid position! Try again.\n");
+            continue;
+        }
+
+        if (matrix[row][col] != ' ') {
+            printf("Position already filled with '%c'. Try again.\n", matrix[row][col]);
+            continue;
+        }
+
+        printf("Enter your string: ");
+        while (getchar() != '\n'); 
+        scanf("%c", &ch);
+
+        if (ch != 'x' && ch != 'o') {
+            printf("....Game only accept x and o charecter.....\n");
+            continue;
+        }
+
+        matrix[row][col] = ch;
+        count++;
+
+        
+        printf("\n");
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if (matrix[i][j] == ' ')
+                    printf("null\t");
+                else
+                    printf("%c\t", matrix[i][j]);
+            }
+            printf("\n");
+        }
+
+        char winner = checkWinner();
+        if (winner == 'x' || winner == 'o') {
+            printf("\nPlayer '%c' wins!\n", winner);
+            break;
+        }
+
+        if (count == 9) {
+            printf("\nIt's a draw!\n");
+            break;
+        }
+    }
+
+    return 0;
+}
